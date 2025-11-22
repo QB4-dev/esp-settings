@@ -207,6 +207,7 @@ esp_err_t settings_nvs_read(const settings_group_t *settings_pack)
                     setting->date.year = (val & 0xFFFF);
                 } break;
                 case SETTING_TYPE_DATETIME:
+                    /* this is current date and time on device not from nvs */
                     datetime_struct_update(&setting->datetime);
                     break;
 #endif
@@ -236,6 +237,7 @@ esp_err_t settings_nvs_read(const settings_group_t *settings_pack)
 esp_err_t settings_nvs_write(const settings_group_t *settings_pack)
 {
     char       nvs_id[128];
+    uint8_t    id_len;
     nvs_handle nvs;
     esp_err_t  rc;
 
@@ -243,7 +245,15 @@ esp_err_t settings_nvs_write(const settings_group_t *settings_pack)
     if (rc == ESP_OK) {
         for (const settings_group_t *gr = settings_pack; gr->id; gr++) {
             for (setting_t *setting = gr->settings; setting->id; setting++) {
-                sprintf(nvs_id, "%s:%s", gr->id, setting->id);
+                snprintf(nvs_id, sizeof(nvs_id), "%s:%s", gr->id, setting->id);
+
+                id_len = strnlen(nvs_id, sizeof(nvs_id));
+                if (id_len >= NVS_KEY_NAME_MAX_SIZE - 1) {
+                    ESP_LOGE(TAG, "NVS key too long (%u >= %d): %s", id_len, NVS_KEY_NAME_MAX_SIZE - 1, nvs_id);
+                    rc = ESP_ERR_INVALID_ARG;
+                    continue;
+                }
+
                 switch (setting->type) {
                 case SETTING_TYPE_BOOL:
                     rc = nvs_set_i8(nvs, nvs_id, setting->boolean.val);
@@ -264,12 +274,13 @@ esp_err_t settings_nvs_write(const settings_group_t *settings_pack)
                 } break;
                 case SETTING_TYPE_DATE: {
                     uint32_t val = 0;
-                    val |= (setting->date.day & 0xFF << 24);
-                    val |= (setting->date.month & 0xFF << 16);
-                    val |= (setting->date.year & 0xFFFF);
+                    val |= ((uint32_t)(setting->date.day & 0xFF) << 24);
+                    val |= ((uint32_t)(setting->date.month & 0xFF) << 16);
+                    val |= ((uint32_t)(setting->date.year & 0xFFFF));
                     rc = nvs_set_u32(nvs, nvs_id, val);
                 } break;
                 case SETTING_TYPE_DATETIME:
+                    /* set date and time on device - do not store in nvs */
                     rc = datetime_struct_set(&setting->datetime);
                     break;
 #endif
