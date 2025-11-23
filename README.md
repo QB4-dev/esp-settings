@@ -139,4 +139,20 @@ Optional features are controlled by Kconfig options (configured in
 - `CONFIG_SETTINGS_TIMEZONE_SUPPORT` — enable timezone text type
 - `CONFIG_SETTINGS_COLOR_SUPPORT` — enable color type
 
+## Installation
+
+### Using ESP Component Registry
+
+```bash
+idf.py add-dependency "QB4-dev/esp-settings^1.0.0"
+```
+
+### Manual Installation
+
+Clone this repository into your project's `components` directory:
+
+```bash
+cd your_project/components
+git clone https://github.com/QB4-dev/esp-settings.git esp-settings
+```
 
