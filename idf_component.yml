@@ -1,23 +1,19 @@
-version: "1.0.4"
-description: "Settings component for ESP-IDF/ESP8266_RTOS_SDK"
-url: https://github.com/QB4-dev/esp-settings
-documentation: https://github.com/QB4-dev/esp-settings/blob/master/README.md
-repository: https://github.com/QB4-dev/esp-settings
-issues: https://github.com/QB4-dev/esp-settings/issues
+name: esp-settings
+version: 1.0.5
 
 dependencies:
   idf:
-    version: ">=4.4"
+    version: '>=4.4'
 
+description: Settings component for ESP-IDF/ESP8266_RTOS_SDK
+documentation: https://github.com/QB4-dev/esp-settings/blob/master/README.md
+issues: https://github.com/QB4-dev/esp-settings/issues
+license: MIT
 maintainers:
   - Jakub Turek <qb4.dev@gmail.com>
-
+repository: https://github.com/QB4-dev/esp-settings
 tags:
   - settings
   - nvs
   - httpd
 
-license: MIT
-
-examples:
-  - path: examples/default
