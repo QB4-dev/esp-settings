@@ -1,4 +1,4 @@
-# esp-settings
+# Component: Settings
 
 Settings component for ESP-IDF providing a small, structured settings
 subsystem with support for typed settings, default values, and
@@ -142,6 +142,8 @@ Optional features are controlled by Kconfig options (configured in
 ## Installation
 
 ### Using ESP Component Registry
+
+[![Component Registry](https://components.espressif.com/components/qb4-dev/settings/badge.svg)](https://components.espressif.com/components/qb4-dev/settings)
 
 ```bash
 idf.py add-dependency "QB4-dev/settings=*"
