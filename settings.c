@@ -512,6 +512,7 @@ esp_err_t settings_nvs_read(const settings_group_t *settings_pack)
         nvs_close(nvs);
     } else {
         ESP_LOGW(TAG, "nvs open error %s", esp_err_to_name(rc));
+        return rc;
     }
     return ESP_OK;
 }
