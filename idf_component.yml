@@ -1,18 +1,18 @@
-version: 1.0.17
+dependencies:
+  idf: '>=5.0'
+  espressif/cjson: ^1.7.19~2
 description: Settings component for ESP-IDF/ESP8266_RTOS_SDK
-repository: https://github.com/QB4-dev/nvs-settings
-url: https://github.com/QB4-dev/nvs-settings
 documentation: https://github.com/QB4-dev/nvs-settings/blob/master/README.md
 issues: https://github.com/QB4-dev/nvs-settings/issues
 license: MIT
-examples:
-  - path: examples/default
+repository: git://github.com/QB4-dev/nvs-settings.git
+repository_info:
+  commit_sha: e413b72992af9b8ab2f6b352bd5264842ac26f2b
+  path: .
 tags:
-  - settings
-  - nvs
-  - httpd
-  - tree
-dependencies:
-  idf: '>=4.0'
-
-
+- settings
+- nvs
+- httpd
+- tree
+url: https://github.com/QB4-dev/nvs-settings
+version: 1.0.18
